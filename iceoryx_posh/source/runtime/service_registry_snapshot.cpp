@@ -16,8 +16,7 @@
 
 #include "iceoryx_posh/capro/service_description.hpp"
 #include "iceoryx_posh/iceoryx_posh_types.hpp"
-
-#include <vector>
+#include "iox/vector.hpp"
 
 namespace iox
 {
@@ -27,14 +26,13 @@ namespace runtime
 class ServiceRegistrySnapshot
 {
   public:
-    ServiceRegistrySnapshot() noexcept
-    {
-        m_services.reserve(MAX_NUMBER_OF_SERVICES);
-    }
+    ServiceRegistrySnapshot() noexcept = default;
 
-    void add(const capro::ServiceDescription& service) noexcept
+    /// @brief appends a service to the snapshot
+    /// @return true if successful, false if the snapshot is already full
+    bool add(const capro::ServiceDescription& service) noexcept
     {
-        m_services.push_back(service);
+        return m_services.push_back(service);
     }
 
     uint64_t size() const noexcept
@@ -48,7 +46,7 @@ class ServiceRegistrySnapshot
     }
 
   private:
-    std::vector<capro::ServiceDescription> m_services;
+    vector<capro::ServiceDescription, SERVICE_REGISTRY_CAPACITY> m_services;
 };
 } // namespace runtime
 } // namespace iox
