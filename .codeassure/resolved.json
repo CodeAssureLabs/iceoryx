@@ -1,0 +1,22 @@
+{
+  "artifact_version": 1,
+  "source_manifest_version": 1,
+  "layer_map": {},
+  "path_globs": [
+    {"glob": "iceoryx_examples/**", "layer": "entry"},
+    {"glob": "iceoryx_integrationtest/**", "layer": "entry"},
+    {"glob": "iceoryx_binding_c/**", "layer": "api"},
+    {"glob": "iceoryx_posh/**", "layer": "service"},
+    {"glob": "iceoryx_hoofs/**", "layer": "domain"},
+    {"glob": "iceoryx_platform/**", "layer": "data"}
+  ],
+  "compiled_rules": {
+    "allowed": {
+      "entry": ["api", "service", "domain", "data"],
+      "api": ["service", "domain", "data"],
+      "service": ["domain", "data"],
+      "domain": ["data"],
+      "data": []
+    }
+  }
+}

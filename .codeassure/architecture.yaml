@@ -1,0 +1,58 @@
+schema_version: 1
+manifest_version: 1
+repo: CodeAssureLabs/iceoryx
+# Layer order follows the CMake find_package() chain and the design docs:
+#   iceoryx_platform -> iceoryx_hoofs -> iceoryx_posh -> iceoryx_binding_c
+# iceoryx_examples / iceoryx_integrationtest are consumers only.
+layers:
+  entry: [api, service, domain, data]
+  api: [service, domain, data]
+  service: [domain, data]
+  domain: [data]
+  data: []
+forbidden_edges:
+  - id: hoofs-no-posh
+    from: domain
+    to: service
+    reason: "iceoryx_hoofs is the foundation library below iceoryx_posh (hoofs only find_package()s iceoryx_platform); it must never include iceoryx_posh headers"
+    check: blocking
+    severity: high
+  - id: platform-no-hoofs
+    from: data
+    to: domain
+    reason: "iceoryx_platform is the OS abstraction at the bottom of the stack; it must not include iceoryx_hoofs (iox/...) headers"
+    check: blocking
+    severity: high
+  - id: posh-no-binding-c
+    from: service
+    to: api
+    reason: "iceoryx_posh is the C++ middleware core; the C binding (iceoryx_binding_c) sits on top of it and posh must never include it"
+    check: blocking
+    severity: high
+required_companions:
+  - id: popo-source-needs-moduletest
+    when: "iceoryx_posh/source/popo/**/*.cpp"
+    require: ["iceoryx_posh/test/moduletests/test_popo_*.cpp"]
+    reason: "a new or changed popo component needs a module test (iceoryx_posh/test/moduletests/test_popo_*.cpp)"
+    check: detect_only
+  - id: binding-c-source-needs-moduletest
+    when: "iceoryx_binding_c/source/c_*.cpp"
+    require: ["iceoryx_binding_c/test/moduletests/test_*.cpp"]
+    reason: "a new or changed C binding translation unit needs a module test (iceoryx_binding_c/test/moduletests/test_*.cpp)"
+    check: detect_only
+invariants:
+  - id: no-exceptions-in-posh
+    within: "iceoryx_posh/source/**"
+    forbid_pattern: '\bthrow\b'
+    reason: "CONTRIBUTING.md rule 2: no exceptions; errors propagate via iox::expected or the error handler (IOX_EXPECTS/IOX_ENSURES)"
+    check: detect_only
+  - id: no-stdio-logging-in-popo
+    within: "iceoryx_posh/source/popo/**"
+    forbid_pattern: 'std::cout|\bprintf\s*\('
+    reason: "CONTRIBUTING.md rule 7: always use iox::log::Logger (IOX_LOG) instead of printf/std::cout"
+    check: detect_only
+  - id: no-heap-containers-in-posh
+    within: "iceoryx_posh/source/**"
+    forbid_pattern: 'std::(vector|map|unordered_map|list|deque)\b'
+    reason: "CONTRIBUTING.md rule 1/6: no heap; use iox::vector / iox::list / fixed-size containers from iceoryx_hoofs"
+    check: detect_only
