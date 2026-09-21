@@ -130,7 +130,7 @@ IpcMessageType stringToIpcMessageType(const char* str) noexcept;
 
 /// @brief Converts a message type enumeration value into a string
 /// @param[in] msg enum value to convert
-std::string IpcMessageTypeToString(const IpcMessageType msg) noexcept;
+std::string ipcMessageTypeToString(const IpcMessageType msg) noexcept;
 
 /// @brief Converts a string to the message error type enumeration
 /// @param[in] str string to convert

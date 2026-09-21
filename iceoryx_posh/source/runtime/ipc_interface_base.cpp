@@ -49,7 +49,7 @@ IpcMessageType stringToIpcMessageType(const char* str) noexcept
     return static_cast<IpcMessageType>(msg);
 }
 
-std::string IpcMessageTypeToString(const IpcMessageType msg) noexcept
+std::string ipcMessageTypeToString(const IpcMessageType msg) noexcept
 {
     using UnderlyingType = std::underlying_type<IpcMessageType>::type;
     return convert::toString(static_cast<UnderlyingType>(msg));
