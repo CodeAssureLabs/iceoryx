@@ -30,7 +30,7 @@ namespace iox
 ///     iox::deadline_timer deadlineTimer(1000_ms);
 ///
 ///     // to check if the timer is active
-///     if( deadlineTimer.hasExpired()){
+///     if( deadlineTimer.isExpired()){
 ///     ...
 ///     }
 ///     // to reset the timer and start again with the same duration
@@ -46,7 +46,7 @@ class deadline_timer
 
     /// @brief Checks if the timer has expired compared to its absolute end time
     /// @return false if the timer is still active and true if it is expired
-    bool hasExpired() const noexcept;
+    bool isExpired() const noexcept;
 
     /// @brief reinitializes the ending time for the timer. The absolute end time is calculated by adding time to wait
     /// to the current time.
