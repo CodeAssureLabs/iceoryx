@@ -233,10 +233,10 @@ enum class ResourceType
 };
 
 using ResourcePrefix_t = string<RESOURCE_PREFIX_LENGTH>;
-/// @brief Returns the prefix string used for resources
+/// @brief Builds the prefix string used for resources
 /// @param[in] domainId to use for the prefix string
 /// @param[in] resourceType to specify whether the resource is defined by iceoryx internals or by user input
-ResourcePrefix_t iceoryxResourcePrefix(const DomainId domainId, const ResourceType resourceType) noexcept;
+ResourcePrefix_t buildIceoryxResourcePrefix(const DomainId domainId, const ResourceType resourceType) noexcept;
 
 namespace experimental
 {
