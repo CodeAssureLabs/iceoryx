@@ -30,7 +30,7 @@ namespace iox
 {
 namespace roudi
 {
-capro::Interfaces StringToCaProInterface(const capro::IdString_t& str) noexcept
+capro::Interfaces stringToCaProInterface(const capro::IdString_t& str) noexcept
 {
     auto result = convert::from_string<int32_t>(str.c_str());
     if (!result.has_value())

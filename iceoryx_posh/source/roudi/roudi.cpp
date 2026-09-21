@@ -510,7 +510,7 @@ void RouDi::processMessage(const runtime::IpcMessage& message,
         else
         {
             capro::Interfaces commInterface =
-                StringToCaProInterface(into<lossy<capro::IdString_t>>(message.getElementAtIndex(2)));
+                stringToCaProInterface(into<lossy<capro::IdString_t>>(message.getElementAtIndex(2)));
 
             m_prcMgr->addInterfaceForProcess(runtimeName, commInterface);
         }
