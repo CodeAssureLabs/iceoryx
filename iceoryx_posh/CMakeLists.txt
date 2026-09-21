@@ -148,6 +148,7 @@ iox_add_library(
         source/runtime/ipc_interface_user.cpp
         source/runtime/ipc_interface_creator.cpp
         source/runtime/ipc_runtime_interface.cpp
+        source/runtime/platform_config_probe.cpp
         source/runtime/ipc_message.cpp
         source/runtime/port_config_info.cpp
         source/runtime/posh_runtime.cpp                #
