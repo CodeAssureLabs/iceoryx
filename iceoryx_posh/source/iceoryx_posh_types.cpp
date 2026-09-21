@@ -21,7 +21,7 @@
 namespace iox
 {
 
-ResourcePrefix_t iceoryxResourcePrefix(const DomainId domainId, const ResourceType resourceType) noexcept
+ResourcePrefix_t buildIceoryxResourcePrefix(const DomainId domainId, const ResourceType resourceType) noexcept
 {
     static_assert(iox::size(IOX_DEFAULT_RESOURCE_PREFIX) <= 5,
                   "The 'IOX_DEFAULT_RESOURCE_PREFIX' must not have more than 4 characters + the null-termination!");
