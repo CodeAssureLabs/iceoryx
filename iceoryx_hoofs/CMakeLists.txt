@@ -94,6 +94,7 @@ iox_add_library(
         reporting/source/logging.cpp
         time/source/duration.cpp
         utility/source/unique_id.cpp
+        utility/source/service_registry_helper.cpp
 
         posix/vocabulary/source/file_name.cpp
         posix/vocabulary/source/file_path.cpp
