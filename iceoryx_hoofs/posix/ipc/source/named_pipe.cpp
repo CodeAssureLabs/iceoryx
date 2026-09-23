@@ -48,10 +48,10 @@ expected<NamedPipe, PosixIpcChannelError> NamedPipeBuilder::create() const noexc
 
     // leading slash is allowed even though it is not a valid file name
     bool isValidPipeName =
-        detail::isValidFileName(m_name)
+        detail::isValidFilename(m_name)
         // name is checked for emptiness, so it's ok to get a first member
         // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-        || (!m_name.empty() && m_name.c_str()[0] == '/' && detail::isValidFileName(*m_name.substr(1)));
+        || (!m_name.empty() && m_name.c_str()[0] == '/' && detail::isValidFilename(*m_name.substr(1)));
     if (!isValidPipeName)
     {
         IOX_LOG(Error, "The named pipe name: '" << m_name << "' is not a valid file path name.");
