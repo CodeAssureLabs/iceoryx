@@ -16,8 +16,7 @@
 
 #include "iox/detail/service_identifier.hpp"
 
-#include "iceoryx_posh/capro/service_description.hpp"
-#include "iox/string.hpp"
+#include <cstring>
 
 namespace iox
 {
@@ -30,13 +29,14 @@ bool doesServiceTripleMatch(const char* service,
                             const char* otherInstance,
                             const char* otherEvent) noexcept
 {
-    const capro::ServiceDescription first{capro::IdString_t{TruncateToCapacity, service},
-                                          capro::IdString_t{TruncateToCapacity, instance},
-                                          capro::IdString_t{TruncateToCapacity, event}};
-    const capro::ServiceDescription second{capro::IdString_t{TruncateToCapacity, otherService},
-                                           capro::IdString_t{TruncateToCapacity, otherInstance},
-                                           capro::IdString_t{TruncateToCapacity, otherEvent}};
-    return capro::serviceMatch(first, second);
+    // two triples describe the same service when their service identifiers are equal;
+    // instance and event are not part of the match (mirrors capro::serviceMatch in iceoryx_posh)
+    static_cast<void>(instance);
+    static_cast<void>(event);
+    static_cast<void>(otherInstance);
+    static_cast<void>(otherEvent);
+
+    return strcmp(service, otherService) == 0;
 }
 } // namespace detail
 } // namespace iox
