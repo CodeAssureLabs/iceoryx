@@ -59,7 +59,7 @@ expected<PosixSharedMemory, PosixSharedMemoryError> PosixSharedMemoryBuilder::cr
         return err(PosixSharedMemoryError::EMPTY_NAME);
     }
 
-    if (!detail::isValidFileName(m_name))
+    if (!detail::isValidFilename(m_name))
     {
         IOX_LOG(Error,
                 "Shared memory requires a valid file name (not path) as name and \"" << m_name

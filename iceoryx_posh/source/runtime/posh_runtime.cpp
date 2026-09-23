@@ -135,7 +135,7 @@ const RuntimeName_t& PoshRuntime::verifyInstanceName(optional<const RuntimeName_
         IOX_LOG(Fatal, "Cannot initialize runtime. Application name has not been specified!");
         IOX_REPORT_FATAL(PoshError::POSH__RUNTIME_NO_NAME_PROVIDED);
     }
-    else if (!detail::isValidFileName(**name))
+    else if (!detail::isValidFilename(**name))
     {
         IOX_LOG(Fatal,
                 "Cannot initialize runtime. The application name \""
