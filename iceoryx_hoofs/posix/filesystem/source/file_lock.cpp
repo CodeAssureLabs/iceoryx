@@ -33,7 +33,7 @@ constexpr const char FileLock::LOCK_FILE_SUFFIX[];
 
 expected<FileLock, FileLockError> FileLockBuilder::create() noexcept
 {
-    if (!detail::isValidFileName(m_name))
+    if (!detail::isValidFilename(m_name))
     {
         IOX_LOG(Error, "Unable to create FileLock since the name \"" << m_name << "\" is not a valid file name.");
         return err(FileLockError::INVALID_FILE_NAME);

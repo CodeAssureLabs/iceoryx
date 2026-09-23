@@ -71,7 +71,7 @@ inline bool isValidPathEntry(const iox::string<StringCapacity>& name,
 }
 
 template <uint64_t StringCapacity>
-inline bool isValidFileName(const iox::string<StringCapacity>& name) noexcept
+inline bool isValidFilename(const iox::string<StringCapacity>& name) noexcept
 {
     if (name.empty())
     {
@@ -95,14 +95,14 @@ inline bool isValidPathToFile(const iox::string<StringCapacity>& name) noexcept
 
     if (!maybeSeparator.has_value())
     {
-        return isValidFileName(name);
+        return isValidFilename(name);
     }
 
     const auto& position = maybeSeparator.value();
 
     bool isFileNameValid{false};
     name.substr(position + 1).and_then([&isFileNameValid](const auto& s) noexcept {
-        isFileNameValid = isValidFileName(s);
+        isFileNameValid = isValidFilename(s);
     });
 
     bool isPathValid{false};
@@ -152,7 +152,7 @@ inline bool isValidPathToDirectory(const iox::string<StringCapacity>& name) noex
                 const auto guaranteedSubstr = remaining.substr(0, position);
                 const auto& filenameToVerify = guaranteedSubstr.value();
                 const bool isValidDirectory{
-                    (isValidFileName(filenameToVerify))
+                    (isValidFilename(filenameToVerify))
                     || ((filenameToVerify == currentDirectory) || (filenameToVerify == parentDirectory))};
                 if (!isValidDirectory)
                 {
