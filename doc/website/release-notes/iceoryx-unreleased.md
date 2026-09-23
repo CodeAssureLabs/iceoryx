@@ -523,7 +523,7 @@
     // after
     #include "iox/filesystem.hpp"
     iox::isValidPathEntry(..);
-    iox::isValidFileName(..);
+    iox::isValidFilename(..);
     iox::isValidPathToFile(..);
     iox::isValidPathToDirectory(..);
     iox::doesEndWithPathSeparator(..);
