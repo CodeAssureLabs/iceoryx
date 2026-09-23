@@ -99,7 +99,6 @@ iox_add_library(
         posix/vocabulary/source/file_path.cpp
         posix/vocabulary/source/group_name.cpp
         posix/vocabulary/source/path.cpp
-        posix/vocabulary/source/service_identifier.cpp
         posix/vocabulary/source/user_name.cpp
 )
 

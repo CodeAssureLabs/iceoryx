@@ -17,6 +17,8 @@
 #ifndef IOX_HOOFS_POSIX_VOCABULARY_DETAIL_SERVICE_IDENTIFIER_HPP
 #define IOX_HOOFS_POSIX_VOCABULARY_DETAIL_SERVICE_IDENTIFIER_HPP
 
+#include <cstring>
+
 namespace iox
 {
 namespace detail
@@ -26,12 +28,22 @@ namespace detail
 /// @param[in] service, instance, event the first triple
 /// @param[in] otherService, otherInstance, otherEvent the second triple
 /// @return true if the triples match, otherwise false
-bool doesServiceTripleMatch(const char* service,
-                            const char* instance,
-                            const char* event,
-                            const char* otherService,
-                            const char* otherInstance,
-                            const char* otherEvent) noexcept;
+inline bool doesServiceTripleMatch(const char* service,
+                                   const char* instance,
+                                   const char* event,
+                                   const char* otherService,
+                                   const char* otherInstance,
+                                   const char* otherEvent) noexcept
+{
+    // two triples describe the same service when their service identifiers are equal;
+    // instance and event are not part of the match (mirrors capro::serviceMatch in iceoryx_posh)
+    static_cast<void>(instance);
+    static_cast<void>(event);
+    static_cast<void>(otherInstance);
+    static_cast<void>(otherEvent);
+
+    return strcmp(service, otherService) == 0;
+}
 } // namespace detail
 } // namespace iox
 
