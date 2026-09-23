@@ -14,9 +14,10 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#include "iceoryx_posh/iceoryx_posh_types.hpp"
-
 #include "iceoryx_binding_c/internal/cpp2c_enum_translation.hpp"
+#include "iceoryx_binding_c/enums.h"
+
+#include "iceoryx_posh/iceoryx_posh_types.hpp"
 
 namespace iox
 {
