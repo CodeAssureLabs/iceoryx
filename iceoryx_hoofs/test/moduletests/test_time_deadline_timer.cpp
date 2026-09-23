@@ -58,27 +58,27 @@ TIMING_TEST_F(DeadlineTimer_test, ZeroTimeoutTest, Repeat(5), [&] {
     ::testing::Test::RecordProperty("TEST_ID", "eb956212-5565-45d6-8f2a-64f79a0709f0");
     Timer sut(0_s);
 
-    TIMING_TEST_EXPECT_TRUE(sut.hasExpired());
+    TIMING_TEST_EXPECT_TRUE(sut.isExpired());
 })
 
 TIMING_TEST_F(DeadlineTimer_test, DurationOfNonZeroIsExpiresAfterTimeout, Repeat(5), [&] {
     ::testing::Test::RecordProperty("TEST_ID", "bc7c63b2-b55f-4731-8677-f8794d2676d9");
     Timer sut(TIMEOUT);
 
-    TIMING_TEST_EXPECT_FALSE(sut.hasExpired());
+    TIMING_TEST_EXPECT_FALSE(sut.isExpired());
     std::this_thread::sleep_for(std::chrono::milliseconds(2 * SLEEPTIME / 3));
-    TIMING_TEST_EXPECT_FALSE(sut.hasExpired());
+    TIMING_TEST_EXPECT_FALSE(sut.isExpired());
     std::this_thread::sleep_for(std::chrono::milliseconds(2 * SLEEPTIME / 3));
-    TIMING_TEST_EXPECT_TRUE(sut.hasExpired());
+    TIMING_TEST_EXPECT_TRUE(sut.isExpired());
 })
 
 TIMING_TEST_F(DeadlineTimer_test, ResetWithDurationIsExpired, Repeat(5), [&] {
     ::testing::Test::RecordProperty("TEST_ID", "a0af948d-31f1-4a18-b9a7-7c81f6e19bb6");
     Timer sut(TIMEOUT);
     std::this_thread::sleep_for(std::chrono::milliseconds(2 * SLEEPTIME));
-    TIMING_TEST_EXPECT_TRUE(sut.hasExpired());
+    TIMING_TEST_EXPECT_TRUE(sut.isExpired());
     sut.reset();
-    TIMING_TEST_EXPECT_FALSE(sut.hasExpired());
+    TIMING_TEST_EXPECT_FALSE(sut.isExpired());
 })
 
 TIMING_TEST_F(DeadlineTimer_test, ResetWhenNotExpiredIsStillNotExpired, Repeat(5), [&] {
@@ -87,7 +87,7 @@ TIMING_TEST_F(DeadlineTimer_test, ResetWhenNotExpiredIsStillNotExpired, Repeat(5
     std::this_thread::sleep_for(std::chrono::milliseconds(2 * SLEEPTIME / 3));
     sut.reset();
     std::this_thread::sleep_for(std::chrono::milliseconds(2 * SLEEPTIME / 3));
-    TIMING_TEST_EXPECT_FALSE(sut.hasExpired());
+    TIMING_TEST_EXPECT_FALSE(sut.isExpired());
 })
 
 TIMING_TEST_F(DeadlineTimer_test, ResetAfterBeingExpiredIsNotExpired, Repeat(5), [&] {
@@ -95,9 +95,9 @@ TIMING_TEST_F(DeadlineTimer_test, ResetAfterBeingExpiredIsNotExpired, Repeat(5),
     Timer sut(TIMEOUT);
     std::this_thread::sleep_for(std::chrono::milliseconds(2 * SLEEPTIME));
 
-    TIMING_TEST_ASSERT_TRUE(sut.hasExpired());
+    TIMING_TEST_ASSERT_TRUE(sut.isExpired());
     sut.reset();
-    TIMING_TEST_EXPECT_FALSE(sut.hasExpired());
+    TIMING_TEST_EXPECT_FALSE(sut.isExpired());
 })
 
 TIMING_TEST_F(DeadlineTimer_test, ResetWithCustomizedTimeAfterBeingExpiredIsNotExpired, Repeat(5), [&] {
@@ -105,12 +105,12 @@ TIMING_TEST_F(DeadlineTimer_test, ResetWithCustomizedTimeAfterBeingExpiredIsNotE
     Timer sut(TIMEOUT);
     std::this_thread::sleep_for(std::chrono::milliseconds(2 * SLEEPTIME));
 
-    TIMING_TEST_ASSERT_TRUE(sut.hasExpired());
+    TIMING_TEST_ASSERT_TRUE(sut.isExpired());
 
     sut.reset(20_s);
     std::this_thread::sleep_for(std::chrono::milliseconds(2 * SLEEPTIME));
 
-    TIMING_TEST_EXPECT_FALSE(sut.hasExpired());
+    TIMING_TEST_EXPECT_FALSE(sut.isExpired());
 })
 
 TIMING_TEST_F(DeadlineTimer_test, ResetWithCustomizedTimeAfterBeingExpiredIsExpired, Repeat(5), [&] {
@@ -118,12 +118,12 @@ TIMING_TEST_F(DeadlineTimer_test, ResetWithCustomizedTimeAfterBeingExpiredIsExpi
     Timer sut(TIMEOUT);
     std::this_thread::sleep_for(std::chrono::milliseconds(2 * SLEEPTIME));
 
-    TIMING_TEST_ASSERT_TRUE(sut.hasExpired());
+    TIMING_TEST_ASSERT_TRUE(sut.isExpired());
 
     sut.reset(TIMEOUT);
     std::this_thread::sleep_for(std::chrono::milliseconds(2 * SLEEPTIME));
 
-    TIMING_TEST_ASSERT_TRUE(sut.hasExpired());
+    TIMING_TEST_ASSERT_TRUE(sut.isExpired());
 })
 
 TIMING_TEST_F(DeadlineTimer_test, RemainingTimeCheckIfExpired, Repeat(5), [&] {
@@ -131,7 +131,7 @@ TIMING_TEST_F(DeadlineTimer_test, RemainingTimeCheckIfExpired, Repeat(5), [&] {
     Timer sut(TIMEOUT);
     std::this_thread::sleep_for(std::chrono::milliseconds(2 * SLEEPTIME));
 
-    TIMING_TEST_ASSERT_TRUE(sut.hasExpired());
+    TIMING_TEST_ASSERT_TRUE(sut.isExpired());
 
     uint64_t remainingTime = sut.remainingTime().toMilliseconds();
     const uint64_t EXPECTED_REMAINING_TIME = 0; // the timer is expired the remaining wait time is Zero
@@ -143,7 +143,7 @@ TIMING_TEST_F(DeadlineTimer_test, RemainingTimeCheckIfNotExpired, Repeat(5), [&]
     Timer sut(2 * TIMEOUT);
     std::this_thread::sleep_for(std::chrono::milliseconds(SLEEPTIME));
 
-    TIMING_TEST_ASSERT_FALSE(sut.hasExpired());
+    TIMING_TEST_ASSERT_FALSE(sut.isExpired());
 
     uint64_t remainingTime = sut.remainingTime().toMilliseconds();
     const int PASSED_TIMER_TIME = SLEEPTIME; // Already 10ms passed in sleeping out of 20ms

@@ -116,7 +116,7 @@ void RouDi::shutdown() noexcept
         deadline_timer terminationDelayTimer(m_roudiConfig.processTerminationDelay);
         using namespace units::duration_literals;
         auto remainingDurationForInfoPrint = m_roudiConfig.processTerminationDelay - 1_s;
-        while (!terminationDelayTimer.hasExpired() && m_prcMgr->registeredProcessCount() > 0)
+        while (!terminationDelayTimer.isExpired() && m_prcMgr->registeredProcessCount() > 0)
         {
             if (remainingDurationForInfoPrint > terminationDelayTimer.remainingTime())
             {
@@ -132,7 +132,7 @@ void RouDi::shutdown() noexcept
 
         deadline_timer finalKillTimer(m_roudiConfig.processKillDelay);
         auto remainingDurationForWarnPrint = m_roudiConfig.processKillDelay - 2_s;
-        while (m_prcMgr->probeRegisteredProcessesAliveWithSigTerm() && !finalKillTimer.hasExpired())
+        while (m_prcMgr->probeRegisteredProcessesAliveWithSigTerm() && !finalKillTimer.isExpired())
         {
             if (remainingDurationForWarnPrint > finalKillTimer.remainingTime())
             {
@@ -146,7 +146,7 @@ void RouDi::shutdown() noexcept
         }
 
         // Is any processes still alive?
-        if (m_prcMgr->probeRegisteredProcessesAliveWithSigTerm() && finalKillTimer.hasExpired())
+        if (m_prcMgr->probeRegisteredProcessesAliveWithSigTerm() && finalKillTimer.isExpired())
         {
             // Time to kill them
             m_prcMgr->killAllProcesses();
