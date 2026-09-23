@@ -144,7 +144,7 @@ TEST_F(TriggerHandle_test, triggerNotifiesConditionVariable)
     m_sut.trigger();
     t.join();
 
-    EXPECT_FALSE(timeout.hasExpired());
+    EXPECT_FALSE(timeout.isExpired());
 }
 
 TEST_F(TriggerHandle_test, wasTriggeredReturnsFalseAfterCreation)
