@@ -16,13 +16,31 @@
 
 #include "iox/detail/service_identifier.hpp"
 
-#include "iceoryx_posh/capro/service_description.hpp"
 #include "iox/string.hpp"
+#include <cstring>
 
 namespace iox
 {
 namespace detail
 {
+namespace
+{
+bool stringMatchesWithWildcard(const char* pattern, const char* value) noexcept
+{
+    if (pattern == nullptr || value == nullptr)
+    {
+        return pattern == value;
+    }
+
+    if (std::strcmp(pattern, "*") == 0)
+    {
+        return true;
+    }
+
+    return std::strcmp(pattern, value) == 0;
+}
+} // namespace
+
 bool doesServiceTripleMatch(const char* service,
                             const char* instance,
                             const char* event,
@@ -30,13 +48,9 @@ bool doesServiceTripleMatch(const char* service,
                             const char* otherInstance,
                             const char* otherEvent) noexcept
 {
-    const capro::ServiceDescription first{capro::IdString_t{TruncateToCapacity, service},
-                                          capro::IdString_t{TruncateToCapacity, instance},
-                                          capro::IdString_t{TruncateToCapacity, event}};
-    const capro::ServiceDescription second{capro::IdString_t{TruncateToCapacity, otherService},
-                                           capro::IdString_t{TruncateToCapacity, otherInstance},
-                                           capro::IdString_t{TruncateToCapacity, otherEvent}};
-    return capro::serviceMatch(first, second);
+    return stringMatchesWithWildcard(service, otherService)
+           && stringMatchesWithWildcard(instance, otherInstance)
+           && stringMatchesWithWildcard(event, otherEvent);
 }
 } // namespace detail
 } // namespace iox
