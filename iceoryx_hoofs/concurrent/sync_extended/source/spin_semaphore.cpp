@@ -102,7 +102,7 @@ expected<SemaphoreWaitState, SemaphoreError> SpinSemaphore::timed_wait_impl(cons
             ret_val = SemaphoreWaitState::NO_TIMEOUT;
             return false;
         }
-        return !deadline_timer.hasExpired();
+        return !deadline_timer.isExpired();
     });
 
     return ok(ret_val);
