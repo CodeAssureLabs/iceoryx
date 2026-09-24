@@ -180,6 +180,19 @@ class ServiceDescription
 /// @return                                 Bool if comparison match or not
 bool serviceMatch(const ServiceDescription& first, const ServiceDescription& second) noexcept;
 
+/// @brief Convenience overload of 'serviceMatch' for two (service, instance, event) identifier triples given as
+/// C-strings, e.g. when the identifiers are not yet available as 'ServiceDescription'
+/// @note like 'serviceMatch' only the service identifier is compared; instance and event are ignored
+/// @param[in] service, instance, event the first triple
+/// @param[in] otherService, otherInstance, otherEvent the second triple
+/// @return true if the service identifiers of both triples are equal, otherwise false
+bool doesServiceTripleMatch(const char* service,
+                            const char* instance,
+                            const char* event,
+                            const char* otherService,
+                            const char* otherInstance,
+                            const char* otherEvent) noexcept;
+
 /// @brief Convenience stream operator to easily use the 'ServiceDescription' with std::ostream
 /// @param[in] stream output stream to write the message to
 /// @param[in] service ServiceDescription that shall be converted

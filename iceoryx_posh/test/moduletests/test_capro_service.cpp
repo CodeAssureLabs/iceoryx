@@ -381,6 +381,18 @@ TEST_F(ServiceDescription_test, ServiceMatchMethodReturnsFalseIfTheServiceIDsAre
     EXPECT_FALSE(iox::capro::serviceMatch(description1, description2));
 }
 
+TEST_F(ServiceDescription_test, DoesServiceTripleMatchReturnsTrueIfTheServiceStringIsSame)
+{
+    ::testing::Test::RecordProperty("TEST_ID", "1f2adb08-d5d3-4432-809a-1eef256f61c3");
+    EXPECT_TRUE(iox::capro::doesServiceTripleMatch("1", "instance1", "event1", "1", "instance2", "event2"));
+}
+
+TEST_F(ServiceDescription_test, DoesServiceTripleMatchReturnsFalseIfTheServiceIDsAreDifferent)
+{
+    ::testing::Test::RecordProperty("TEST_ID", "4d9e7c87-3a36-41d2-b05d-f7594d9a43b6");
+    EXPECT_FALSE(iox::capro::doesServiceTripleMatch("1", "instance", "event", "2", "instance", "event"));
+}
+
 TEST_F(ServiceDescription_test, IsLocalMethodReturnsTrueWhenTheScopeIsSetToLocal)
 {
     ::testing::Test::RecordProperty("TEST_ID", "fc611c5d-484f-43c7-899e-12085d3e6018");
