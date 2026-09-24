@@ -122,7 +122,7 @@ expected<IpcRuntimeInterface, IpcRuntimeInterfaceError> IpcRuntimeInterface::cre
             {
                 regState = RegState::FINISHED;
             }
-            else if (!timer.hasExpired())
+            else if (!timer.isExpired())
             {
                 regState = RegState::WAIT_FOR_ROUDI;
             }
@@ -131,7 +131,7 @@ expected<IpcRuntimeInterface, IpcRuntimeInterfaceError> IpcRuntimeInterface::cre
             // nothing to do, move along
             break;
         }
-    } while ((!timer.hasExpired() || regState != oldRegState) && regState != RegState::FINISHED);
+    } while ((!timer.isExpired() || regState != oldRegState) && regState != RegState::FINISHED);
 
     switch (regState)
     {
@@ -208,7 +208,7 @@ void IpcRuntimeInterface::waitForRoudi(IpcInterfaceUser& roudiIpcInterface, dead
     bool printWaitingWarning = true;
     bool printFoundMessage = false;
     uint32_t numberOfRemainingFastPolls{10};
-    while (!timer.hasExpired() && !roudiIpcInterface.isInitialized())
+    while (!timer.isExpired() && !roudiIpcInterface.isInitialized())
     {
         roudiIpcInterface.reopen();
 

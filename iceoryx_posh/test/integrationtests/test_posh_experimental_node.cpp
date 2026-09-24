@@ -323,7 +323,7 @@ TEST(Node_test, RegisteringNodeWithoutRunningRouDiWithZeroWaitTimeResultsInImmed
 
     auto node_result = RouDiEnvNodeBuilder("foo").create();
 
-    EXPECT_FALSE(timer.hasExpired());
+    EXPECT_FALSE(timer.isExpired());
 
     ASSERT_TRUE(node_result.has_error());
     EXPECT_THAT(node_result.error(), Eq(NodeBuilderError::TIMEOUT));
@@ -339,7 +339,7 @@ TEST(Node_test, RegisteringNodeWithoutRunningRouDiWithSomeWaitTimeResultsInTimeo
 
     auto node_result = RouDiEnvNodeBuilder("foo").roudi_registration_timeout(wait_for_roudi_timeout).create();
 
-    EXPECT_TRUE(timer.hasExpired());
+    EXPECT_TRUE(timer.isExpired());
 
     ASSERT_TRUE(node_result.has_error());
     EXPECT_THAT(node_result.error(), Eq(NodeBuilderError::TIMEOUT));

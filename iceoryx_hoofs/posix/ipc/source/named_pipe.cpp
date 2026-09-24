@@ -306,7 +306,7 @@ bool NamedPipe::NamedPipeData::waitForInitialization() const noexcept
 
     deadline_timer deadlineTimer(WAIT_FOR_INIT_TIMEOUT);
 
-    while (!deadlineTimer.hasExpired())
+    while (!deadlineTimer.isExpired())
     {
         std::this_thread::sleep_for(std::chrono::nanoseconds(WAIT_FOR_INIT_SLEEP_TIME.toNanoseconds()));
         if (hasValidState())
