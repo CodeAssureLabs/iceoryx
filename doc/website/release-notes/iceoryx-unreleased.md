@@ -515,7 +515,7 @@
     // before
     #include "iceoryx_hoofs/cxx/helplets.hpp"
     iox::cxx::isValidPathEntry(..);
-    iox::cxx::isValidFileName(..);
+    iox::cxx::isValidFilename(..);
     iox::cxx::isValidPathToFile(..);
     iox::cxx::isValidPathToDirectory(..);
     iox::cxx::doesEndWithPathSeparator(..);
@@ -523,7 +523,7 @@
     // after
     #include "iox/filesystem.hpp"
     iox::isValidPathEntry(..);
-    iox::isValidFileName(..);
+    iox::isValidFilename(..);
     iox::isValidPathToFile(..);
     iox::isValidPathToDirectory(..);
     iox::doesEndWithPathSeparator(..);

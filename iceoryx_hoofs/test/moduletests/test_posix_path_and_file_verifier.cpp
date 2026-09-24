@@ -38,7 +38,7 @@ bool isValidFileCharacter(const int32_t i) noexcept
             || i == ASCII_UNDERSCORE);
 }
 
-TEST(path_and_flie_verifier_test_isValidFileName, CorrectInternalAsciiAliases)
+TEST(path_and_flie_verifier_test_isValidFilename, CorrectInternalAsciiAliases)
 {
     ::testing::Test::RecordProperty("TEST_ID", "e729a0a1-e3c4-4d97-a948-d88017f6ac1e");
     EXPECT_EQ(ASCII_A, 'a');
@@ -53,47 +53,47 @@ TEST(path_and_flie_verifier_test_isValidFileName, CorrectInternalAsciiAliases)
     EXPECT_EQ(ASCII_UNDERSCORE, '_');
 }
 
-TEST(path_and_flie_verifier_test_isValidFileName, EmptyNameIsInvalid)
+TEST(path_and_flie_verifier_test_isValidFilename, EmptyNameIsInvalid)
 {
     ::testing::Test::RecordProperty("TEST_ID", "b2b7aa63-c67e-4915-a906-e3b4779ab772");
-    EXPECT_FALSE(isValidFileName(string<FILE_PATH_LENGTH>("")));
+    EXPECT_FALSE(isValidFilename(string<FILE_PATH_LENGTH>("")));
 }
 
-TEST(path_and_flie_verifier_test_isValidFileName, RelativePathComponentsAreInvalid)
+TEST(path_and_flie_verifier_test_isValidFilename, RelativePathComponentsAreInvalid)
 {
     ::testing::Test::RecordProperty("TEST_ID", "b33b4534-f134-499f-ac72-65a3fecaef12");
-    EXPECT_FALSE(isValidFileName(string<FILE_PATH_LENGTH>(".")));
-    EXPECT_FALSE(isValidFileName(string<FILE_PATH_LENGTH>("..")));
+    EXPECT_FALSE(isValidFilename(string<FILE_PATH_LENGTH>(".")));
+    EXPECT_FALSE(isValidFilename(string<FILE_PATH_LENGTH>("..")));
 }
 
 // this restriction ensures that we are compatible with the windows
 // api which does not support dots and spaces at the end
-TEST(path_and_flie_verifier_test_isValidFileName, DotsAndSpacesAreNotValidAtTheEnd)
+TEST(path_and_flie_verifier_test_isValidFilename, DotsAndSpacesAreNotValidAtTheEnd)
 {
     ::testing::Test::RecordProperty("TEST_ID", "436b8146-6386-4b03-9fd0-939d2c91eed3");
-    EXPECT_FALSE(isValidFileName(string<FILE_PATH_LENGTH>("dot.")));
-    EXPECT_FALSE(isValidFileName(string<FILE_PATH_LENGTH>("dotdot..")));
-    EXPECT_FALSE(isValidFileName(string<FILE_PATH_LENGTH>("dotdotdot...")));
-    EXPECT_FALSE(isValidFileName(string<FILE_PATH_LENGTH>(" ")));
-    EXPECT_FALSE(isValidFileName(string<FILE_PATH_LENGTH>(" .")));
-    EXPECT_FALSE(isValidFileName(string<FILE_PATH_LENGTH>(" . ")));
-    EXPECT_FALSE(isValidFileName(string<FILE_PATH_LENGTH>(". .")));
-    EXPECT_FALSE(isValidFileName(string<FILE_PATH_LENGTH>("space ")));
-    EXPECT_FALSE(isValidFileName(string<FILE_PATH_LENGTH>("more space  ")));
+    EXPECT_FALSE(isValidFilename(string<FILE_PATH_LENGTH>("dot.")));
+    EXPECT_FALSE(isValidFilename(string<FILE_PATH_LENGTH>("dotdot..")));
+    EXPECT_FALSE(isValidFilename(string<FILE_PATH_LENGTH>("dotdotdot...")));
+    EXPECT_FALSE(isValidFilename(string<FILE_PATH_LENGTH>(" ")));
+    EXPECT_FALSE(isValidFilename(string<FILE_PATH_LENGTH>(" .")));
+    EXPECT_FALSE(isValidFilename(string<FILE_PATH_LENGTH>(" . ")));
+    EXPECT_FALSE(isValidFilename(string<FILE_PATH_LENGTH>(". .")));
+    EXPECT_FALSE(isValidFilename(string<FILE_PATH_LENGTH>("space ")));
+    EXPECT_FALSE(isValidFilename(string<FILE_PATH_LENGTH>("more space  ")));
 }
 
-TEST(path_and_flie_verifier_test_isValidFileName, FileNameWithValidSymbolsAndDotsAreValid)
+TEST(path_and_flie_verifier_test_isValidFilename, FileNameWithValidSymbolsAndDotsAreValid)
 {
     ::testing::Test::RecordProperty("TEST_ID", "1455491c-1fc3-4843-a72b-2f51f8f2fadc");
-    EXPECT_TRUE(isValidFileName(string<FILE_PATH_LENGTH>("..bla")));
-    EXPECT_TRUE(isValidFileName(string<FILE_PATH_LENGTH>(".blubb")));
-    EXPECT_TRUE(isValidFileName(string<FILE_PATH_LENGTH>("scna..bla")));
-    EXPECT_TRUE(isValidFileName(string<FILE_PATH_LENGTH>("scna.blubb")));
-    EXPECT_TRUE(isValidFileName(string<FILE_PATH_LENGTH>(".bla.b.a.sla.a")));
-    EXPECT_TRUE(isValidFileName(string<FILE_PATH_LENGTH>("...fuu...man...schmu")));
+    EXPECT_TRUE(isValidFilename(string<FILE_PATH_LENGTH>("..bla")));
+    EXPECT_TRUE(isValidFilename(string<FILE_PATH_LENGTH>(".blubb")));
+    EXPECT_TRUE(isValidFilename(string<FILE_PATH_LENGTH>("scna..bla")));
+    EXPECT_TRUE(isValidFilename(string<FILE_PATH_LENGTH>("scna.blubb")));
+    EXPECT_TRUE(isValidFilename(string<FILE_PATH_LENGTH>(".bla.b.a.sla.a")));
+    EXPECT_TRUE(isValidFilename(string<FILE_PATH_LENGTH>("...fuu...man...schmu")));
 }
 
-TEST(path_and_flie_verifier_test_isValidFileName, ValidLetterCombinationsAreValid)
+TEST(path_and_flie_verifier_test_isValidFilename, ValidLetterCombinationsAreValid)
 {
     ::testing::Test::RecordProperty("TEST_ID", "1a8661ad-4511-4e54-8cd9-16f21074c332");
     constexpr uint32_t COMBINATION_CAPACITY = 3U;
@@ -114,12 +114,12 @@ TEST(path_and_flie_verifier_test_isValidFileName, ValidLetterCombinationsAreVali
             auto& s = combinations[index];
             s.append(1, static_cast<char>(i));
 
-            EXPECT_TRUE(isValidFileName(string<FILE_PATH_LENGTH>(iox::TruncateToCapacity, s.c_str(), s.size())));
+            EXPECT_TRUE(isValidFilename(string<FILE_PATH_LENGTH>(iox::TruncateToCapacity, s.c_str(), s.size())));
         }
     }
 }
 
-TEST(path_and_flie_verifier_test_isValidFileName, WhenOneInvalidCharacterIsContainedFileNameIsInvalid)
+TEST(path_and_flie_verifier_test_isValidFilename, WhenOneInvalidCharacterIsContainedFileNameIsInvalid)
 {
     ::testing::Test::RecordProperty("TEST_ID", "067ddf95-8a5c-442b-8022-ecab580b5a7d");
     std::string validName1 = "summon";
@@ -150,9 +150,9 @@ TEST(path_and_flie_verifier_test_isValidFileName, WhenOneInvalidCharacterIsConta
         string<FILE_PATH_LENGTH> invalidCharacterEndTest(
             iox::TruncateToCapacity, invalidCharacterEnd.c_str(), invalidCharacterEnd.size());
 
-        EXPECT_FALSE(isValidFileName(invalidCharacterFrontTest));
-        EXPECT_FALSE(isValidFileName(invalidCharacterMiddleTest));
-        EXPECT_FALSE(isValidFileName(invalidCharacterEndTest));
+        EXPECT_FALSE(isValidFilename(invalidCharacterFrontTest));
+        EXPECT_FALSE(isValidFilename(invalidCharacterMiddleTest));
+        EXPECT_FALSE(isValidFilename(invalidCharacterEndTest));
     }
 }
 
