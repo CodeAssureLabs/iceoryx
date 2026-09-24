@@ -14,41 +14,25 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#include "iceoryx_posh/capro/service_description.hpp"
-#include "iceoryx_posh/iceoryx_posh_types.hpp"
-
-#include <vector>
+#include "iceoryx_posh/internal/runtime/service_registry_snapshot.hpp"
 
 namespace iox
 {
 namespace runtime
 {
-/// @brief collects the services currently visible to the runtime into a snapshot buffer
-class ServiceRegistrySnapshot
+bool ServiceRegistrySnapshot::add(const capro::ServiceDescription& service) noexcept
 {
-  public:
-    ServiceRegistrySnapshot() noexcept
-    {
-        m_services.reserve(MAX_NUMBER_OF_SERVICES);
-    }
+    return m_services.push_back(service);
+}
 
-    void add(const capro::ServiceDescription& service) noexcept
-    {
-        m_services.push_back(service);
-    }
+uint64_t ServiceRegistrySnapshot::size() const noexcept
+{
+    return m_services.size();
+}
 
-    uint64_t size() const noexcept
-    {
-        return m_services.size();
-    }
-
-    void clear() noexcept
-    {
-        m_services.clear();
-    }
-
-  private:
-    std::vector<capro::ServiceDescription> m_services;
-};
+void ServiceRegistrySnapshot::clear() noexcept
+{
+    m_services.clear();
+}
 } // namespace runtime
 } // namespace iox
