@@ -27,9 +27,18 @@ namespace popo
 class TriggerStatistics
 {
   public:
+    /// @brief Increments the activation count by one
     void recordActivation() noexcept;
+
+    /// @brief Increments the reset count by one
     void recordReset() noexcept;
+
+    /// @brief Returns the number of times the trigger was activated
+    /// @return the activation count
     uint64_t activationCount() const noexcept;
+
+    /// @brief Returns the number of times the trigger was reset
+    /// @return the reset count
     uint64_t resetCount() const noexcept;
 
   private:
