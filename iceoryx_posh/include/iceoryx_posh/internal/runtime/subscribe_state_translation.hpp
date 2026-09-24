@@ -14,9 +14,11 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#include "iceoryx_posh/internal/runtime/subscribe_state_translation.hpp"
+#ifndef IOX_POSH_RUNTIME_SUBSCRIBE_STATE_TRANSLATION_HPP
+#define IOX_POSH_RUNTIME_SUBSCRIBE_STATE_TRANSLATION_HPP
 
-#include "iceoryx_binding_c/internal/cpp2c_enum_translation.hpp"
+#include "iceoryx_binding_c/types.h"
+#include "iceoryx_posh/iceoryx_posh_types.hpp"
 
 namespace iox
 {
@@ -25,9 +27,8 @@ namespace runtime
 /// @brief translates the runtime subscribe state into the value exposed to C clients
 /// @param[in] state the current subscribe state of a subscriber port
 /// @return the equivalent iox_SubscribeState value
-iox_SubscribeState toCSubscribeState(const SubscribeState state) noexcept
-{
-    return cpp2c::subscribeState(state);
-}
+iox_SubscribeState toCSubscribeState(const SubscribeState state) noexcept;
 } // namespace runtime
 } // namespace iox
+
+#endif // IOX_POSH_RUNTIME_SUBSCRIBE_STATE_TRANSLATION_HPP
