@@ -229,6 +229,22 @@ bool serviceMatch(const ServiceDescription& first, const ServiceDescription& sec
     return (first.getServiceIDString() == second.getServiceIDString());
 }
 
+bool doesServiceTripleMatch(const char* service,
+                            const char* instance,
+                            const char* event,
+                            const char* otherService,
+                            const char* otherInstance,
+                            const char* otherEvent) noexcept
+{
+    const ServiceDescription first{IdString_t{TruncateToCapacity, service},
+                                   IdString_t{TruncateToCapacity, instance},
+                                   IdString_t{TruncateToCapacity, event}};
+    const ServiceDescription second{IdString_t{TruncateToCapacity, otherService},
+                                    IdString_t{TruncateToCapacity, otherInstance},
+                                    IdString_t{TruncateToCapacity, otherEvent}};
+    return serviceMatch(first, second);
+}
+
 std::ostream& operator<<(std::ostream& stream, const ServiceDescription& service) noexcept
 {
     /// @todo iox-#1141 Add classHash, scope and interface
