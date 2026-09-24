@@ -161,7 +161,7 @@ expected<void, SemaphoreError>
 // NOLINTNEXTLINE(readability-function-size,readability-function-cognitive-complexity)
 NamedSemaphoreBuilder::create(optional<NamedSemaphore>& uninitializedSemaphore) const noexcept
 {
-    if (!detail::isValidFileName(m_name))
+    if (!detail::isValidFilename(m_name))
     {
         IOX_LOG(Error, "The name \"" << m_name << "\" is not a valid semaphore name.");
         return err(SemaphoreError::INVALID_NAME);
