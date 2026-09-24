@@ -1521,3 +1521,15 @@
 66. add optional timeout parameter in sendRequestToRouDi
 
 67. add timeout in terminator request
+
+68. Rename `deadline_timer::hasExpired` to `deadline_timer::isExpired`
+
+    ```cpp
+    // before
+    iox::deadline_timer myTimer(1000_ms);
+    if (myTimer.hasExpired()) { ... }
+
+    // after
+    iox::deadline_timer myTimer(1000_ms);
+    if (myTimer.isExpired()) { ... }
+    ```
