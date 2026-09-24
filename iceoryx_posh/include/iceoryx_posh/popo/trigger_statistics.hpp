@@ -27,9 +27,16 @@ namespace popo
 class TriggerStatistics
 {
   public:
+    /// @brief increments the number of recorded activations
     void recordActivation() noexcept;
+
+    /// @brief increments the number of recorded resets
     void recordReset() noexcept;
+
+    /// @brief returns how often an activation was recorded
     uint64_t activationCount() const noexcept;
+
+    /// @brief returns how often a reset was recorded
     uint64_t resetCount() const noexcept;
 
   private:

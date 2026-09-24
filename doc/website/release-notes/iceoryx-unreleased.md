@@ -79,6 +79,7 @@
 - Port iceoryx to bzlmod [#2325](https://github.com/eclipse-iceoryx/iceoryx/issues/2325)
 - Make ACL support optional [#1176](https://github.com/eclipse-iceoryx/iceoryx/issues/1176)
 - Implement subscriber/publisher options in introspection [#2076](https://github.com/eclipse-iceoryx/iceoryx/issues/2076)
+- Add `TriggerStatistics` to count trigger activations and resets [#36](https://github.com/eclipse-iceoryx/iceoryx/pull/36)
 
 **Bugfixes:**
 
