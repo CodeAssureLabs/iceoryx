@@ -144,7 +144,6 @@ iox_add_library(
         source/posh_error_reporting.cpp
         source/version/version_info.cpp
         source/runtime/heartbeat.cpp
-        source/runtime/subscribe_state_translation.cpp
         source/runtime/ipc_interface_base.cpp
         source/runtime/ipc_interface_user.cpp
         source/runtime/ipc_interface_creator.cpp
