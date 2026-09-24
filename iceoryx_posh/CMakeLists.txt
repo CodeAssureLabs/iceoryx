@@ -139,6 +139,7 @@ iox_add_library(
         source/popo/server_options.cpp
         source/popo/subscriber_options.cpp
         source/popo/trigger.cpp
+        source/popo/trigger_statistics.cpp
         source/popo/trigger_handle.cpp
         source/popo/user_trigger.cpp
         source/posh_error_reporting.cpp
