@@ -21,11 +21,10 @@ namespace iox
 {
 namespace detail
 {
-/// @brief checks whether two (service, instance, event) identifier triples describe the same
-///        service, honouring the wildcard semantics used by the service registry
+/// @brief checks whether two (service, instance, event) identifier triples are equal
 /// @param[in] service, instance, event the first triple
 /// @param[in] otherService, otherInstance, otherEvent the second triple
-/// @return true if the triples match, otherwise false
+/// @return true if all three components of both triples are equal, otherwise false
 bool doesServiceTripleMatch(const char* service,
                             const char* instance,
                             const char* event,
