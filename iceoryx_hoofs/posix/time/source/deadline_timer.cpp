@@ -28,7 +28,7 @@ deadline_timer::deadline_timer(const iox::units::Duration timeToWait) noexcept
 {
 }
 
-bool deadline_timer::hasExpired() const noexcept
+bool deadline_timer::isExpired() const noexcept
 {
     return getCurrentMonotonicTime() >= m_endTime;
 }
