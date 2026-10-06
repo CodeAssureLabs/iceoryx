@@ -80,7 +80,13 @@ bool SignalWatcher::wasSignalTriggered() const noexcept
 
 void waitForTerminationRequest() noexcept
 {
-    SignalWatcher::getInstance().waitForSignal();
+    auto& watcher = SignalWatcher::getInstance();
+    if (watcher.wasSignalTriggered())
+    {
+        // a termination request already arrived; do not register as a waiter
+        return;
+    }
+    watcher.waitForSignal();
 }
 
 bool hasTerminationRequested() noexcept
