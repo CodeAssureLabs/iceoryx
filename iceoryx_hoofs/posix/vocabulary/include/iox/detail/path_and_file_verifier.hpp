@@ -70,7 +70,7 @@ bool isValidPathEntry(const string<StringCapacity>& name, const RelativePathComp
 /// @param[in] name the string to verify
 /// @return true if the string is a filename, otherwise false
 template <uint64_t StringCapacity>
-bool isValidFileName(const string<StringCapacity>& name) noexcept;
+bool isValidFilename(const string<StringCapacity>& name) noexcept;
 
 /// @brief verifies if the given string is a valid path to a file
 /// @param[in] name the string to verify
