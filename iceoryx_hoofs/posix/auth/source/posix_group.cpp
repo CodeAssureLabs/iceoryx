@@ -51,9 +51,14 @@ bool PosixGroup::operator==(const PosixGroup& other) const noexcept
     return (m_id == other.m_id);
 }
 
-PosixGroup PosixGroup::getGroupOfCurrentProcess() noexcept
+PosixGroup PosixGroup::getGroupOfCurrentProcess(const bool logIfGroupNameUnresolvable) noexcept
 {
-    return PosixGroup(iox_getgid());
+    PosixGroup group(iox_getgid());
+    if (logIfGroupNameUnresolvable && !group.doesExist())
+    {
+        IOX_LOG(Warn, "Group id of the current process could not be resolved to a group name");
+    }
+    return group;
 }
 
 optional<iox_gid_t> PosixGroup::getGroupID(const PosixGroup::groupName_t& name) noexcept

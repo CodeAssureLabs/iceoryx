@@ -40,7 +40,10 @@ class PosixGroup
 
     bool doesExist() const noexcept;
 
-    static PosixGroup getGroupOfCurrentProcess() noexcept;
+    /// @brief returns the primary group of the current process
+    /// @param[in] logIfGroupNameUnresolvable when true, a warning is logged if the group id of the
+    ///            current process cannot be resolved to a group name
+    static PosixGroup getGroupOfCurrentProcess(const bool logIfGroupNameUnresolvable) noexcept;
 
     static optional<iox_uid_t> getGroupID(const groupName_t& name) noexcept;
     static optional<groupName_t> getGroupName(iox_gid_t id) noexcept;
