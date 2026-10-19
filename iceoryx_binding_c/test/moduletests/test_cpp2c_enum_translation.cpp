@@ -314,9 +314,9 @@ TEST(cpp2c_enum_translation_test, ServerEvent)
 TEST(cpp2c_enum_translation_test, ServerState)
 {
     ::testing::Test::RecordProperty("TEST_ID", "f9750af5-9002-4b08-bde5-16181b50b7d9");
-    EXPECT_EQ(cpp2c::serverState(iox::popo::ServerState::HAS_REQUEST), ServerState_HAS_REQUEST);
+    EXPECT_EQ(cpp2c::serverStateToC(iox::popo::ServerState::HAS_REQUEST), ServerState_HAS_REQUEST);
 
-    EXPECT_EQ(cpp2c::serverState(iox_test_binding_c::maxUnderlyingCEnumValue<iox::popo::ServerState>()),
+    EXPECT_EQ(cpp2c::serverStateToC(iox_test_binding_c::maxUnderlyingCEnumValue<iox::popo::ServerState>()),
               ServerState_HAS_REQUEST);
 }
 

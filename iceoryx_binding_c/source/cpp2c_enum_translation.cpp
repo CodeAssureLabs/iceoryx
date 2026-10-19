@@ -187,7 +187,7 @@ iox_ServerEvent serverEvent(const iox::popo::ServerEvent value) noexcept
     return ServerEvent_REQUEST_RECEIVED;
 }
 
-iox_ServerState serverState(const iox::popo::ServerState value) noexcept
+iox_ServerState serverStateToC(const iox::popo::ServerState value) noexcept
 {
     switch (value)
     {
